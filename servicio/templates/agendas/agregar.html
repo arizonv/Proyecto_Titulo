@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Servicios | {{ block.super }}
+{% endblock %}
+
+{% load static %}
+{% load humanize %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block container %}
+
+<div class="container">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      Agendas
+    </div>
+    <div class="card-body">
+      {{form}}
+      <a type="submit" class="btn btn-primary">Guardar</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

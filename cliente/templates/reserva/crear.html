@@ -1,0 +1,153 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Reserva | {{ block.super }}
+{% endblock %}
+
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/reserva/reserva.css' %}" type="text/css">
+<!-- Incluye jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Incluye jQuery UI -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!-- Estilos CSS de jQuery UI -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block container %}
+
+<style>
+    .card-info {
+        animation: bounceInLeft 1s both;
+    }
+
+    @keyframes bounceInLeft {
+
+        0%,
+        60%,
+        75%,
+        90%,
+        100% {
+            animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        }
+
+        0% {
+            opacity: 0;
+            transform: translateX(-3000px);
+        }
+
+        60% {
+            opacity: 1;
+            transform: translateX(25px);
+        }
+
+        75% {
+            transform: translateX(-10px);
+        }
+
+        90% {
+            transform: translateX(5px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+</style>
+
+{% if form.errors %}
+<div class="error-messages">
+    <h3>Error:</h3>
+    <ul>
+        {% for field in form %}
+        {% if field.errors %}
+        <li>{{ field.label }}: {{ field.errors|join:", " }}</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="card card-info bounceInLeft">
+    <div class="agenda" {% if transaction_data.token %}style="display: none;"{% endif %} >
+        <h2>Información de la Agenda</h2>
+        <hr>
+        <p>Cancha: N°{{ agenda.cancha.numeracion }}</p>
+        <p>Horario: {{ agenda.horario }}</p>
+        <p>Precio: ${{ agenda.cancha.tipo.precio|intcomma}}</p>
+        <form method="post" class="reserva-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.dia.id_for_label }}">Día: <i class="far fa-calendar-alt"><span> (Presiona aqui para
+                            elegir el dia)</span></i><br>{{ form.dia }}</label>
+            </div>
+            <input type="submit" value="Crear Reserva" class="btn btn-outline-dark"
+                {% if transaction_data.token %}disabled{% endif %}>
+        </form>
+    </div>
+    {% if transaction_data.token %}
+    <div class="pago text-center">
+        <h2 >CONFIRMACION DE PAGO</h2>
+        <br>
+        <form action="{{ transaction_data.url }}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="token_ws" value="{{ transaction_data.token }}">
+            <input type="submit" value="Pagar" class="btn btn-outline-dark">
+        </form> 
+    </div>
+    {% endif %}
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var diasReservados = {{dias_reservados_json | safe}};
+
+        $(".datepicker").datepicker({
+            minDate: "+1d",
+            maxDate: "+2w",
+            dateFormat: "dd/mm/yy",
+            beforeShowDay: function (date) {
+                var disabledDates = diasReservados; // Usar el JSON aquí
+                var dateString = $.datepicker.formatDate("dd/mm/yy", date);
+
+                // Verificar si es domingo y deshabilitar
+                if (date.getDay() === 0) {
+                    return [false];
+                }
+
+                return [disabledDates.indexOf(dateString) === -1];
+            },
+
+            currentText: "Hoy",
+            monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
+                "Septiembre", "Octubre", "Noviembre", "Diciembre"
+            ],
+            monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct",
+                "Nov", "Dic"
+            ],
+            dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes",
+                "Sábado"
+            ],
+            dayNamesMin: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie",
+                "Sáb"
+            ],
+            firstDay: 1
+        });
+
+        var today = new Date();
+        $(".datepicker").datepicker("setDate", today);
+    });
+</script>
+
+{% endblock %}

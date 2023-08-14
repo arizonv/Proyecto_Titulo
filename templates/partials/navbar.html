@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Arizona</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                
+                {% if user.is_authenticated %}
+                    {% if user.roles.nombre == 'admin' or user.roles.nombre == 'trabajador' %}
+                        <!-- Opciones que verá un usuario con rol "admin", "trabajador" o "nuevo_rol" -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'servicio:agenda-listar' %}">Agendas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'servicio:cancha-listar' %}">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'cliente:reserva_list' %}">Reservas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'cliente:cliente_list' %}">Clientes</a>
+                        </li>
+                    {% elif user.roles.nombre == 'cliente' %}
+                        <!-- Opciones que verá un usuario con rol "cliente" -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'servicio:agenda-reserva' %}">Reserva</a>
+                        </li>
+                    {% endif %}
+                    <!-- Opciones comunes para usuarios autenticados -->
+                    <li class="nav-item"> 
+                        <a class="nav-link" href="{% url 'account:index' %}">Cuenta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'Login:logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <!-- Opciones para usuarios no autenticados -->
+                    {% if not user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'Login:login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'account:register' %}">Registro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled">ARIZONA</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+

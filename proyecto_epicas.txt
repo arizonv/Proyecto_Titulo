@@ -1,0 +1,135 @@
+Épica 1: Gestión de Roles y Permisos
+
+Historia de Usuario 1.1: Creación y Edición de Permisos
+
+    Como administrador, quiero poder crear y editar permisos en el sistema.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar permisos.
+    Debo poder crear un permiso nuevo proporcionando un nombre único y una descripción.
+    También deseo tener la opción de editar un permiso existente para cambiar su nombre o descripción.
+
+Historia de Usuario 1.2: Asignación de Permisos a Roles
+
+    Como administrador, quiero poder asignar permisos a roles para definir capacidades.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar roles.
+    Quiero poder seleccionar un rol existente y asignarle permisos específicos.
+    Debo poder desasignar permisos de un rol si es necesario.
+
+Historia de Usuario 1.3: Creación y Edición de Roles
+
+    Como administrador, quiero poder crear y editar roles en el sistema.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar roles.
+    Debo poder crear un nuevo rol proporcionando un nombre y una descripción.
+    También deseo tener la opción de editar un rol existente para cambiar su nombre o descripción.
+
+Historia de Usuario 1.4: Asignación de Roles a Usuarios
+
+    Como administrador, quiero poder asignar roles a usuarios para definir sus niveles de acceso.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar usuarios.
+    Quiero seleccionar un usuario existente y asignarle uno o varios roles.
+    Debo poder cambiar los roles asignados a un usuario si es necesario.
+
+Épica 2: Gestión de Usuarios y Clientes
+Historia de Usuario 2.1: Registro y Edición de Usuarios
+
+    Como administrador o trabajador, quiero poder registrar y editar usuarios en el sistema.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar usuarios.
+    Debo poder registrar un nuevo usuario proporcionando detalles como nombre, apellidos, email y rol.
+    También deseo tener la opción de editar los detalles de un usuario existente, como su nombre o email.
+
+Historia de Usuario 2.2: Desactivación de Usuarios
+
+    Como administrador o trabajador, quiero poder desactivar usuarios si es necesario.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar usuarios.
+    Quiero poder seleccionar un usuario y cambiar su estado de activación para desactivarlo.
+    Debo asegurarme de que un usuario desactivado no pueda iniciar sesión ni realizar acciones en el sistema.
+
+Historia de Usuario 2.3: Registro y Edición de Clientes
+
+    Como administrador o trabajador, quiero poder registrar y editar clientes en el sistema.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar clientes.
+    Debo poder registrar un nuevo cliente proporcionando detalles como el usuario asociado, RUT y sexo.
+    También deseo tener la opción de editar los detalles de un cliente existente, como su RUT o sexo.
+
+Historia de Usuario 2.4: Eliminación de Clientes
+
+    Como administrador o trabajador, quiero poder eliminar clientes si es necesario.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar clientes.
+    Quiero poder seleccionar un cliente y eliminarlo, asegurándome de que no haya reservas asociadas.
+    Debo confirmar la eliminación para evitar pérdida de datos.
+
+Épica 3: Gestión de Reservas y Canchas
+Historia de Usuario 3.1: Realización de Reservas
+
+    Como cliente, quiero poder realizar reservas para canchas en horarios específicos.
+    Deseo acceder al sistema y encontrar una sección para realizar reservas.
+    Debo poder ver la disponibilidad de canchas y horarios en un calendario interactivo.
+    Quiero seleccionar una cancha y un horario disponible para mi reserva.
+    Después de confirmar la reserva, quiero recibir una notificación por correo electrónico.
+
+Historia de Usuario 3.2: Gestión de Reservas
+
+    Como trabajador o cliente, quiero poder gestionar mis reservas en el sistema.
+    Deseo acceder al sistema y encontrar una sección para ver y administrar mis reservas.
+    Debo poder ver una lista de todas mis reservas con detalles como la cancha, el horario y el estado.
+    Quiero poder cambiar el estado de una reserva, por ejemplo, de pendiente a finalizada.
+
+Historia de Usuario 3.3: Generación de Boletas para Reservas
+
+    Como trabajador, quiero poder generar boletas para las reservas completadas.
+    Deseo acceder al panel de administración y encontrar una sección para generar boletas.
+    Quiero seleccionar una reserva finalizada y generar automáticamente una boleta asociada.
+    La boleta debe incluir detalles completos de la reserva y calcular el total a pagar.
+
+Historia de Usuario 3.4: Administración de Tipos de Cancha
+
+    Como administrador o trabajador, quiero poder administrar los tipos de canchas disponibles.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar tipos de canchas.
+    Debo poder crear, editar o eliminar tipos de canchas según sea necesario.
+    Quiero ingresar detalles como el nombre, precio y descripción de cada tipo de cancha.
+
+Historia de Usuario 3.5: Administración de Canchas
+
+    Como administrador o trabajador, quiero poder administrar las canchas disponibles.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar canchas.
+    Debo poder crear, editar o eliminar canchas según sea necesario.
+    Quiero asignar una numeración única y seleccionar un tipo de cancha para cada una.
+
+
+Épica 4: Gestión de Horarios y Agenda
+
+Historia de Usuario 4.1: Administración de Horarios
+
+    Como administrador o trabajador, quiero poder administrar los horarios de las canchas.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar horarios.
+    Debo poder crear, editar o eliminar horarios según sea necesario.
+    Quiero especificar la hora de inicio, hora de fin y meridiem para cada horario.
+    Además, deseo visualizar la disponibilidad de horarios en relación con las reservas existentes.
+
+Historia de Usuario 4.2: Visualización de Disponibilidad de Canchas
+
+    Como cliente, quiero poder ver la disponibilidad de las canchas en diferentes horarios.
+    Deseo acceder al sistema y encontrar una sección para visualizar la disponibilidad.
+    Quiero ver un calendario interactivo que muestre las canchas y horarios disponibles en tiempo real.
+    Debo poder identificar fácilmente las canchas ocupadas en un horario determinado y filtrar por tipo de cancha si es necesario.
+    Además, quiero poder hacer clic en un horario disponible para iniciar el proceso de reserva.
+
+Historia de Usuario 4.3: Creación de Agendas
+
+    Como administrador, quiero poder crear agendas para las canchas en horarios específicos.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar agendas.
+    Debo poder seleccionar una cancha y un horario disponible para crear una nueva agenda.
+    Quiero poder definir la disponibilidad de la cancha en ese horario y guardar la agenda.
+
+Historia de Usuario 4.4: Visualización de Agendas
+
+    Como trabajador o cliente, quiero poder ver las agendas de las canchas en diferentes horarios.
+    Deseo acceder al sistema y encontrar una sección para visualizar las agendas.
+    Quiero ver una lista de las canchas y sus agendas en un formato claro y ordenado.
+    Debo poder identificar rápidamente las canchas y horarios disponibles para futuras reservas.
+
+Historia de Usuario 4.5: Asignación de Agendas a Reservas
+
+    Como trabajador, quiero poder asignar agendas a las reservas realizadas.
+    Deseo acceder al panel de administración y encontrar una sección para gestionar reservas.
+    Debo poder seleccionar una reserva pendiente y asignarle una agenda disponible.
+    Quiero que la reserva refleje la cancha, el horario y la agenda asignados.

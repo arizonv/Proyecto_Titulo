@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+hola mundo | {{ block.super }}
+{% endblock %}
+
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/login/login.css' %}" type="text/css">
+{% endblock %}
+
+{% block container %}
+<div class="wrapper">
+    <div id="formContent">
+        <br>
+        <br>
+        <div class="fadeIn first">
+            <h1>A R I Z O N A. ADMIN</h1>
+            <br>
+        </div>
+
+        <!-- Formulario de inicio de sesión -->
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="fadeIn fourth" value="Iniciar sesión">
+        </form>
+
+        <!-- Recordar contraseña -->
+        <div id="formFooter">
+            <a class="underlineHover" href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

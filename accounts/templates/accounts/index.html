@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% load custom_filters %}
+
+{% block title %}
+index | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+
+<body class="body">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                {% if user.is_authenticated %}
+                <div class="list-group">
+                    <a class="list-group-item active">Mi Cuenta</a>
+                    {% if user.roles.nombre == 'admin' or user.roles.nombre == 'trabajador' or user.roles.nombre == 'cliente'%}
+                    <a href="{% url 'account:update_user'%}" class="list-group-item">modificar usuario</a>
+                    <a href="{% url 'account:update_password'%}" class="list-group-item">modificar contraseña</a>               
+                    {% endif %}
+                    {% if user.roles.nombre == 'cliente'%}
+                    <a href="{% url 'cliente:cliente_create' %}" class="list-group-item"> datos complementarios </a>                 
+                    {% endif %}
+                </div>
+                <br>
+                <div class="list-group">
+                    {% if user.roles.nombre == 'cliente'%}
+                    <a href="{% url 'cliente:listar_reservas_usuario' %}" class="list-group-item">Mis reservas</a>
+                    {% endif %}
+
+                    {% if user.roles.nombre == 'admin'%}
+                    <a class="list-group-item active">Anexos</a>
+                    <a href="{% url 'account:user_list' %}" class="list-group-item">Usuarios</a>
+                    <a href="{% url 'account:user_admin_list' %}" class="list-group-item">Trabajadores</a>
+                    <a href="{% url 'api:generate_excel' %}" class="list-group-item">Reporte</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <!-- ################## listas servicio , reservas , agendas  ################## -->
+                {% block accounts_container %}<h2>Bienvenido {{ user.name }} </h2>{% endblock %}
+
+            </div>
+        </div>
+</body>
+
+{% endblock %}

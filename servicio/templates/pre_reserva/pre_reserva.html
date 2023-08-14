@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Agendas | {{ block.super }}
+{% endblock %}
+
+{% load static %}
+{% load humanize %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/servicio/agendas.css' %}" type="text/css">
+{% endblock %}
+
+{% block container %}
+
+<!-- Tipos de Canchas -->
+<div class="tipos-cancha">
+  <div class="card-tipos">
+    {% for tipo in tipos_cancha %}
+      <div class="card">
+        <a href="{% url 'servicio:agenda-reserva'%}">
+          {% if tipo.nombre == "Futbolito" %}
+            <img src="https://dummyimage.com/600x400/000/fff" alt="Imagen de la cancha de futbolito">
+          {% elif tipo.nombre == "Paddel" %}
+            <img src="https://dummyimage.com/600x400/000/fff" alt="Imagen de la cancha de paddel">
+          {% elif tipo.nombre == "Cross" %}
+            <img src="https://dummyimage.com/600x400/000/fff" alt="Imagen de la cancha de paddel">
+          {% else %}
+            <img src="https://dummyimage.com/600x400/000/fff" alt="Imagen predeterminada">
+          {% endif %}
+        </a>
+        <div class="card-body">
+          <h1>{{ tipo.nombre }} (<span>${{ tipo.precio|intcomma }}</span>)</h1>
+
+          <p>{{ tipo.descripcion }}</p>
+          <a href="#" class="card-link btn btn-outline-dark" data-toggle="modal" data-target="#canchasModal{{ tipo.id }}">Ver Canchas</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<!-- Modal para mostrar las canchas correspondientes a un tipo -->
+{% for tipo in tipos_cancha %}
+  <div class="modal" id="canchasModal{{ tipo.id }}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Canchas - {{ tipo.nombre }}</h5>
+          <div data-dismiss="modal" aria-label="Close">
+            <span id="close-modal" aria-hidden="true">&times;</span>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="card-deck">
+            {% for cancha in tipo.canchas.all %}
+              <div class="card-canchas">
+                <div class="card-body">
+                  <h5 class="card-title">Cancha N°{{ cancha.numeracion }}</h5>
+                  <a href="#" class="card-link btn btn-outline-dark" data-toggle="modal" data-target="#horariosModal{{ cancha.id }}">Ver Horarios</a>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+<!-- Submodal para mostrar los horarios de una cancha -->
+{% for tipo, canchas_agendas in agendas_por_cancha.items %}
+  {% for cancha, agendas in canchas_agendas.items %}
+    <div class="modal" id="horariosModal{{ cancha.id }}">
+      <div class="modal-dialog-agenda">
+        <div id="modal-content-horarios"   class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Horarios - {{ cancha }}</h5>
+            <div data-dismiss="modal" aria-label="Close">
+              <span id="close-modal" aria-hidden="true">&times;</span>
+            </div>
+          </div>
+          <div class="modal-body">
+            <ul>
+              {% for agenda in agendas %}
+                <li><a href="{% url 'cliente:crear_reserva' agenda_id=agenda.id %}" >{{ agenda.cancha.tipo}} / {{ agenda.horario }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endfor %}
+
+{% endblock %}

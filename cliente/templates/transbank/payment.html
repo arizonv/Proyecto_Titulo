@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Reserva | {{ block.super }}
+{% endblock %}
+
+{% load static %}
+{% block head %}
+
+{% endblock %}
+
+{% block container %}
+
+<h1>Realizar pago</h1>
+<form action="{{ transaction_data.url }}" method="post">
+    <input type="hidden" name="token_ws" value="{{ transaction_data.token }}">
+    <input type="submit" value="Pagar">
+</form>
+    
+{% endblock %}
+
+
+

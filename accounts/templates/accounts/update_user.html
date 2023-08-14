@@ -1,0 +1,38 @@
+{% extends 'accounts/index.html' %}
+
+{% block accounts_container %}
+
+<style>
+  .form-group {
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="container">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      Usuario
+    </div>
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+        <div class="form-group">
+          {{ form.apellidos.label_tag }}
+          {{ form.apellidos }}
+        </div>
+        <div class="form-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

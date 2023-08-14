@@ -1,0 +1,108 @@
+.carousel-item {
+    display: none;
+    width: 100%;
+    max-height: 400px;
+    /* Ajusta la altura según tus necesidades */
+}
+
+.carousel-item.active {
+    display: block;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.carousel-caption .caption-content {
+    display: inline-block;
+}
+
+.carousel-caption h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.carousel-caption p {
+    font-size: 14px;
+    margin-top: 0;
+}
+
+.nosotros {
+    background-color: #f5f5f5;
+    padding: 40px;
+    text-align: center;
+}
+
+.nosotros h2 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.nosotros p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 0;
+}
+
+.servicio {
+    background-color: #f9f9f9;
+    padding: 40px;
+    text-align: center;
+}
+
+.servicio h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contador {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.contador h2 {
+    display: inline-block;
+    font-size: 40px;
+    margin-right: 10px;
+}
+
+#contador-somos {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 767px) {
+    .nosotros,
+    .servicio {
+        padding: 20px;
+    }
+
+    .nosotros h2 {
+        font-size: 24px;
+    }
+
+    .nosotros p {
+        font-size: 16px;
+    }
+
+    .servicio h3 {
+        font-size: 18px;
+    }
+}

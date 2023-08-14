@@ -1,0 +1,12 @@
+# Archivos y carpetas a ignorar en el repositorio
+# Ignorar la carpeta env en la raíz del proyecto
+/env/
+
+# Ignorar la carpeta .vscode en la raíz del proyecto
+.vscode/
+
+# Otros archivos o carpetas a ignorar...
+
+
+git config --global user.email a.vasgarridoe@gmail.com  
+git config --global user.name arizonv

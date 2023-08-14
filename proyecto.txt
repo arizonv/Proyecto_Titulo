@@ -1,0 +1,36 @@
+Alonso (Cliente,Usuario,Servicio)
+Mantenedores:
+Transbank
+User(ok)
+Cliente
+Cliente+(Ticket)
+Reserva
+Cancha(ok)
+TipoCancha(ok)
+Agenda(ok)
+
+
+Mati (accounts,servicio)
+Estilos faltantes
+Mantenedores:
+Permiso
+Rol
+Boleta
+Horario
+
+Edgardo (Movil)
+
+
+Api:
+Login(ok)
+Logout(ok)
+UserList(ok)
+Register(ok)
+ExcelReport(ok)
+falta:
+
+#cuando se va a realizar el segundo pago se muestra qr y mediante eso por la app movil se cambia el estado de reserva a finalizado
+#falta revisar en caso de que la respuesta de la api sea failed ahi ya no se genera codigo ni la reserva
+
+
+

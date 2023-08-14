@@ -1,0 +1,49 @@
+{% extends "accounts/index.html" %}
+{% load custom_filters %}
+
+{% block title %}
+List | {{ block.super }}
+{% endblock %}
+
+{% block accounts_container %}
+
+<div class="container">
+  <br>
+  <br>
+  {% if user|has_permission:"Administracion" %}
+    <a href="{% url 'roles_permisos:asignar_rol' %}" id="agregar-agenda-btn" class="btn btn-outline-dark">Agregar Nuevo Trabajador</a>
+  {% endif %}
+  <hr>
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Trabajadores</h1>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <!-- Agrega los enlaces para las acciones de edición y eliminación -->
+              <a href="#" class="btn btn-primary">Edit</a>
+              <a href="{% url 'account:user_delete' user.pk %}" class="btn btn-danger">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

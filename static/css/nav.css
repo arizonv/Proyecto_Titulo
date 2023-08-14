@@ -1,0 +1,31 @@
+.navbar-nav .nav-item .nav-link {
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.navbar-nav .nav-item .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 2px;
+    background-color: #646464;
+    /* Color de la línea */
+    transform: scaleX(0);
+    /* Inicialmente, la línea tiene un ancho de 0 */
+    transition: transform 0.3s;
+}
+
+.navbar-nav .nav-item .nav-link:hover,
+.navbar-nav .nav-item .nav-link:focus {
+    color: #0f0f0f;
+    /* Color del texto al colocar el mouse sobre el enlace */
+}
+
+.navbar-nav .nav-item .nav-link:hover::after,
+.navbar-nav .nav-item .nav-link:focus::after {
+    transform: scaleX(1);
+    /* La línea se expande a lo largo del ancho del enlace */
+}

@@ -1,0 +1,54 @@
+{% extends "accounts/index.html" %}
+
+{% block accounts_container %}
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Editar Cliente</h1>
+        </div>
+        <div class="card-body">
+            <form class="form-horizontal" action="" method="post">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label class="col-md-3 control-label">RUT</label>
+                    <div class="col-md-9">
+                        {{ form.rut }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Sexo</label>
+                    <div class="col-md-9">
+                        <select class="form-control" name="{{ form.sexo.name }}">
+                            {% for value, label in form.sexo.field.choices %}
+                                <option value="{{ value }}" {% if form.sexo.value == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <div class="form-group">
+                            <div class="col-md-9 col-md-offset-3">
+                                {% for error in field.errors %}
+                                    <div class="error">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

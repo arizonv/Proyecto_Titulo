@@ -1,0 +1,45 @@
+{% extends "accounts/index.html" %}
+{% load custom_filters %}
+
+{% block title %}
+List | {{ block.super }}
+{% endblock %}
+
+{% block accounts_container %}
+<div class="container">
+  <br>
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Usuarios</h1>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr {% if user.roles.nombre == "cliente" %}style="background-color: lightgreen;"{% endif %}>
+            <td>{{ user.username }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.roles }}</td>
+            <td>
+              <a href="#" class="btn btn-outline-primary">Edit</a>
+              <a href="{% url 'account:user_delete' user.pk %}" class="btn btn-outline-danger">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

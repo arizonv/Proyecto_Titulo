@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Reservas | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+
+<div class="container">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Lista de reservas</h1>
+    </div>
+    <div class="card-body">
+      {% if reservas %}
+      <table class="table reserva-table text-center">
+        <thead>
+          <tr>
+            <th>Cancha</th>
+            <th>Tipo</th>
+            <th>Agenda</th>
+            <th>Cliente</th>
+            <th>Día</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reserva in reservas %}
+          <tr style="{% if reserva.dia == today %}background-color: lightblue;
+                     {% elif reserva.dia < today %}background-color: lightcoral; text-decoration: line-through;
+                     {% elif reserva.estado == 'pendiente' %}background-color: lightgreen;{% endif %}">
+            <td>{{ reserva.agenda.cancha }}</td>
+            <td>{{ reserva.agenda.cancha.tipo }}</td>
+            <td>{{ reserva.agenda.horario }}</td>
+            <td>{{ reserva.cliente }}</td>
+            <td>{{ reserva.dia }}</td>
+            <td>{{ reserva.estado }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6">No hay servicio disponibles.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No hay reservas disponibles.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

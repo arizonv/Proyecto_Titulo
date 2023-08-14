@@ -1,0 +1,187 @@
+/* Estilos generales */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Tipos de Canchas */
+
+.tipos-cancha {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.tipos-cancha h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.card-tipos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 400px; /* Ajusta el ancho deseado */
+    height: 370px; /* Ajusta la altura deseada */
+    min-width: 300px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.card a {
+    display: block;
+}
+
+.card img {
+    width: 100%;
+    height: 180px; /* Ajusta la altura proporcionalmente */
+}
+
+
+.card-body {
+    padding: 20px;
+}
+
+.card h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card h1 span {
+    color: #c00;
+}
+
+.card p {
+    margin-bottom: 20px;
+}
+
+.card-link {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.card-link:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+/* Modales */
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#close-modal {
+    cursor: pointer;
+    font-size: 30px; /* Tamaño de fuente más grande */
+    line-height: 1; /* Ajuste opcional para el espaciado vertical */
+}
+
+.modal-dialog {
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.modal-title {
+    font-size: 24px;
+    margin: 0;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body .card-deck {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.card-canchas {
+    width: 300px;
+    margin: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.modal-dialog-agenda {
+    margin: 80px auto;
+    max-width: 800px;
+}
+
+/* Submodal */
+
+#modal-content-horarios {
+    padding: 20px;
+}
+
+.modal-body ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-body ul li {
+    margin-bottom: 10px;
+}
+
+.modal-body ul li a {
+    text-decoration: none;
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.modal-body ul li a:hover {
+    color: #c00;
+}

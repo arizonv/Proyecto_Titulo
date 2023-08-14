@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Reserva | {{ block.super }}
+{% endblock %}
+
+{% load static %}
+
+{% block container %}
+<style>
+    .card {
+        max-width: 300px;
+        margin: 0 auto;
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .card h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333333;
+    }
+
+    .card p {
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: #666666;
+    }
+</style>
+
+<div class="card">
+    <h1>Confirmación de transacción</h1>
+    <p>Estado: {{ transaction_data.status }}</p>
+    <p>Monto: {{ transaction_data.amount }}</p>
+    <p>Buy Order: {{ transaction_data.buy_order }}</p>
+    <p>-------------------------------------------</p>
+    <p>Fecha de transacción: {{ transaction_data.transaction_date }}</p>
+    <p>Código de autorización: {{ transaction_data.authorization_code }}</p>
+    <p>Tipo de pago: {{ transaction_data.payment_type_code }}</p>
+</div>
+
+<script>
+    setTimeout(function(){
+        window.location.href = "/";
+    }, 10000); // 10 segundos en milisegundos
+</script>
+
+{% endblock %}

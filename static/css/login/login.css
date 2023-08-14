@@ -1,0 +1,88 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#formContent {
+  background-color: #f6f6f6;
+  padding: 25px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  /* Nuevos estilos para la animación */
+  position: relative;
+  top: -100px;
+  animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+  animation-iteration-count: 1;
+  transform-origin: center bottom;
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceIn {
+  0% {
+    top: -1000px;
+    opacity: 0;
+    transform: scaleY(0.8);
+  }
+  60% {
+    top: 25px;
+    opacity: 1;
+    transform: scaleY(1.1);
+  }
+  75% {
+    transform: scaleY(0.95);
+  }
+  90% {
+    transform: scaleY(1.02);
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+form {
+  display: grid;
+  gap: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+input[type="submit"] {
+  padding: 10px;
+  background-color: #f48024;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+}
+
+#formFooter {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.underlineHover {
+  color: #f48024;
+  text-decoration: none;
+}

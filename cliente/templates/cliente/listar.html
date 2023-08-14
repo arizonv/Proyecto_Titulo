@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Clientes | {{ block.super }}
+{% endblock %}
+
+{% block container %}
+<div class="container">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      Lista de Clientes
+    </div>
+    <div class="card-body">
+      <div class="table-responsive text-center">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre de Usuario</th>
+              <th>RUT</th>
+              <th>Sexo</th>
+              <th>Códigos de Ticket</th>
+              <th>Reservas</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cliente in clientes %}
+            <tr>
+              <td>{{ cliente.id }}</td>
+              <td>{{ cliente.user.username }}</td>
+              <td>{{ cliente.rut }}</td>
+              <td>{{ cliente.get_sexo_display }}</td>
+              <td>
+                {% for ticket in cliente.ticket_set.all %}
+                <a class="btn ticket-modal-button" data-target="#ticketModal{{ ticket.codigo }}"
+                  data-toggle="modal" style="margin-top: -10px;">{{ ticket.codigo }}--&#10230;;</a><br>
+                {% endfor %}
+              </td>
+              <td>
+                {% for reserva in cliente.reserva_set.all %}
+                {{ reserva.get_estado_display }}<br>
+                {% endfor %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  {% for cliente in clientes %}
+    {% for ticket in cliente.ticket_set.all %}
+    <div class="modal fade" id="ticketModal{{ ticket.codigo }}" tabindex="-1" role="dialog"
+      aria-labelledby="ticketModalLabel" aria-hidden="true" >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ticketModalLabel">Detalles de Reserva</h5>
+            <div data-dismiss="modal" aria-label="Close" style="cursor: pointer;">
+              <span id="close-modal" aria-hidden="true" style="font-size: 1.5rem;">&times;</span>
+            </div>
+          </div>
+          <div class="modal-body text-start">
+            <p>Cliente: {{ cliente.user.username }}</p>
+            <p>Rut: {{ cliente.rut }}</p>
+            <p>Fecha de Reserva: {{ ticket.reserva.dia }}</p>
+            <hr>
+            <p>Horario: {{ ticket.reserva.agenda.horario }}</p>
+            <p>N° de Cancha: {{ ticket.reserva.agenda.cancha }}</p>
+            <p>Tipo: {{ ticket.reserva.agenda.cancha.tipo }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endfor %}
+</div>
+
+{% endblock %}

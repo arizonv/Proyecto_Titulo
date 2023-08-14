@@ -1,0 +1,45 @@
+{% extends "accounts/index.html" %}
+
+{% block accounts_container %}
+
+<div class="container">
+  <div class="card">
+    {% comment %} <div class="card-header">
+    </div> {% endcomment %}
+    <div class="card-body">
+      {% if reservas %}
+      <table class="table reserva-table">
+        <thead>
+          <tr>
+            <th>Cancha</th>
+            <th>Tipo</th>
+            <th>Agenda</th>
+            <th>Día</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reserva in reservas %}
+          <tr {% if reserva.dia == today %}style="background-color: lightblue;"
+              {% elif reserva.dia < today %}style="background-color: lightcoral;"{% endif %}>
+            <td>{{ reserva.agenda.cancha }}</td>
+            <td>{{ reserva.agenda.cancha.tipo }}</td>
+            <td>{{ reserva.agenda.horario }}</td>
+            <td>{{ reserva.dia }}</td>
+            <td>{{ reserva.estado }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4">No hay servicio disponibles.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>No hay reservas disponibles.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

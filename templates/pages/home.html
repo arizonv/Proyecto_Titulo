@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home | {{ block.super }}
+{% endblock %}
+
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home/home.css' %}" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    type="text/css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+{% endblock %}
+
+{% block container %}
+<div class="owl-carousel">
+    <div class="item active">
+        <img src="https://via.placeholder.com/800x300" alt="imagen 1">
+    </div>
+    <div class="item">
+        <img src="https://via.placeholder.com/800x300" alt="imagen 2">
+        <div class="carousel-caption">
+            <h3>Imagen 2</h3>
+            <p>Descripción de la imagen 2.</p>
+        </div>
+    </div>
+    <div class="item">
+        <img src="https://via.placeholder.com/800x300" alt="imagen 3">
+    </div>
+</div>
+
+<div class="nosotros" data-aos="fade-right">
+    <h2>Sobre nosotros</h2>
+    <p>Texto descriptivo sobre tu empresa o proyecto. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero velit deleniti illo iure molestiae voluptatum fugit sequi harum tempora, eius ipsam dolore alias ut maiores pariatur, nostrum, illum inventore eveniet ducimus! Ullam doloremque eum fugiat accusamus ad provident nostrum esse tempore, delectus voluptatum in pariatur fuga! Expedita eligendi explicabo est beatae cupiditate. Molestiae porro, incidunt inventore odio sint nisi. Quasi voluptatibus laboriosam voluptate cumque soluta magni quae suscipit quia aliquid similique tempore pariatur, dolor recusandae voluptates ad eum. Repellendus sit natus veritatis excepturi maxime at alias aperiam, est porro tempora sint recusandae doloremque illo, dolorem doloribus, possimus fugiat quo nesciunt iusto. Quas dolorum placeat explicabo similique ullam, amet quos voluptates earum vel delectus voluptatem error labore architecto quis! Repellendus sequi quo natus porro, ratione voluptas aliquam officiis ipsum ex harum perspiciatis.</p>
+</div>
+
+<div class="contador" data-aos="fade-up">
+    <h1>Ya somos! <span id="contador-somos">0..</span> registrados :)</h1>
+</div>
+
+<div class="servicio owl-carousel">
+    <div class="item">
+        <h3>Servicio 1</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum voluptate odit rem ea perspiciatis corrupti quisquam, quis adipisci, quam enim dolorem modi eius, natus ipsam quidem amet temporibus nesciunt. Neque!</p>
+    </div>
+    <div class="item">
+        <h3>Servicio 2</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum voluptate odit rem ea perspiciatis corrupti quisquam, quis adipisci, quam enim dolorem modi eius, natus ipsam quidem amet temporibus nesciunt. Neque!</p>
+    </div>
+    <div class="item">
+        <h3>Servicio 3</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum voluptate odit rem ea perspiciatis corrupti quisquam, quis adipisci, quam enim dolorem modi eius, natus ipsam quidem amet temporibus nesciunt. Neque!</p>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            margin: 0,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true
+        });
+
+        $(document).ready(function () {
+            AOS.init();
+
+            var contadorNumero = 0;
+            var intervalo;
+
+            function aumentarContador() {
+                contadorNumero++;
+                $('#contador-somos').text(contadorNumero);
+
+                if (contadorNumero < 1000) {
+                    intervalo = setTimeout(aumentarContador, 30); // Ajusta la velocidad aquí (en milisegundos)
+                }
+            }
+
+            $(window).scroll(function () {
+                var nosotrosTop = $('.nosotros').offset().top;
+                var windowHeight = $(window).height();
+                var scrollTop = $(window).scrollTop();
+
+                if (scrollTop + windowHeight > nosotrosTop && contadorNumero === 0) {
+                    contadorNumero++;
+                    aumentarContador();
+                }
+            });
+        });
+
+        $('.servicio.owl-carousel').owlCarousel({
+            items: 1,
+            loop: true,
+            margin: 10,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: true
+        });
+    });
+</script>
+{% endblock %}
