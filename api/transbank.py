@@ -2,6 +2,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
 
+
+#EN ESTE ARCHIVO SE EXPONE LA API DE TRANSBANK DESDE DJANGO PARA SER UTILIZADA
+
 # MÉTODO QUE CREA LA CABECERA SOLICITADA POR TRANSBANK EN UN REQUEST (SOLICITUD)
 def header_request_transbank():
     headers = {

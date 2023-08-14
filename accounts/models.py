@@ -32,6 +32,8 @@ class Permiso(models.Model):
     def __str__(self):
         return self.nombre
 
+
+#ESTE TIPO DE FUNCIONES ES PARA CUANDO SE HAGA EL MIGRATE RELLENAR AUTOMATICO CON PERMISOS POR DEFECTO
 @receiver(post_migrate)
 def create_default_permissions(sender, **kwargs):
     if sender.name == 'accounts':
@@ -120,12 +122,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return str(self).split(' ')[0]
 
+
+#ESTA FUNCION HACE QUE CUANDO SE GUARDE UN USUARIO ESTE TENGA EL ROL POR DEFECTO DE CLIENTE
 @receiver(pre_save, sender=User)
 def assign_default_role(sender, instance, **kwargs):
     if not instance.roles:
         default_role, created = Rol.objects.get_or_create(nombre='cliente')
         instance.roles = default_role
 
+#ESTA FUNCION HACE QUE SI EL USUARIO CAMBIA SU ROL A ADMINISTRADOR SEA LO MISMO QUE UN SUPER USUARIO
 @receiver(pre_save, sender=User)
 def update_is_staff(sender, instance, **kwargs):
     if instance.roles and instance.roles.nombre == 'admin':

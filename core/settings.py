@@ -18,11 +18,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-# if 'CODESPACE_NAME' in os.environ:
-#     codespace_name = os.getenv("CODESPACE_NAME")
-#     codespace_domain = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
-#     CSRF_TRUSTED_ORIGINS = [f'https://{codespace_name}-8000.{codespace_domain}']
-# Application definition
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -33,11 +28,15 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 ]
+#SE SEPARO EN LISTAS PARA LLEVAR MEJOR ORDEN 
 
+#APPS LOCALES
 LOCAL_APPS = ['accounts','login','servicio','cliente',]
 
+#API
 API_REST = ['api',]
 
+#LIRERIAS
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
@@ -136,6 +135,8 @@ USE_I18N = True
 USE_TZ = False
 
 
+
+#CORREOS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'

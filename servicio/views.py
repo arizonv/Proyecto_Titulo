@@ -66,12 +66,13 @@ class AgendaListView(ListView):
     template_name = 'agendas/listar.html'
     context_object_name = 'agendas'
 
+    #ESTA FUNCION RECUERDA AL USUARIO ADMIN O TRABAJADOR RELLENAR SUS DATOS
     def dispatch(self, request, *args, **kwargs):
         user = self.request.user
 
         if not (user.name and user.apellidos):
             messages.warning(self.request, "Completa tu nombre y apellidos antes de continuar.")
-            profile_url = reverse('account:update_user')  # Cambia 'nombre_de_la_url_de_perfil' por el nombre correcto de la URL
+            profile_url = reverse('account:update_user') 
             return redirect(profile_url)
 
         return super().dispatch(request, *args, **kwargs)
@@ -89,8 +90,6 @@ class AgendaListView(ListView):
         return queryset
 
 
-
-
 class AgendaCreateView(CreateView):
     model = Agenda
     template_name = 'agendas/agregar.html'
@@ -106,6 +105,8 @@ class AgendaDeleteView(DeleteView):
     model = Agenda
     success_url = reverse_lazy('agenda-listar')
 
+
+#AQUI SE REALIZA EL PRIMER FILTRO YA QUE  NECESITAMOS QUE MUESTRE LOS TIPOS DE CANCHAS, LUEGO SEGUN EL TIPO.. LAS CANCHAS ASOCIADAS A ESE TIPO, LUEGO SEGUN LA CANCHAS MOSTRAR LAS AGENDAS(HORARIOS) ASOCIADAS AL TIPO DE CANCHA Y CANCHA ESCOGIDO ANTERIORMENTE.
 class PreReserva(ListView):
     model = TipoCancha
     template_name = 'pre_reserva/pre_reserva.html'

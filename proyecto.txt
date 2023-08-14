@@ -27,8 +27,9 @@ Logout(ok)
 UserList(ok)
 Register(ok)
 ExcelReport(ok)
-falta:
 
+falta:
+#api para cambiar el estado de la reserva en el segundo pago
 #cuando se va a realizar el segundo pago se muestra qr y mediante eso por la app movil se cambia el estado de reserva a finalizado
 #falta revisar en caso de que la respuesta de la api sea failed ahi ya no se genera codigo ni la reserva
 

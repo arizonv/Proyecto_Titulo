@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import redirect
 
+
+#ESTA FUNCION ES LA QUE CREA LOS DECORADORES PARA ASIGNAR DESPUES LOS PERMISOS A LAS FUNCIONES PARA QUE SEGUN SU PERMISO PUEDA ACCEDER O O A ELLAS 
 def has_permission(permiso_nombres):
     def decorator(view_func):
         def check_permission(request, *args, **kwargs):

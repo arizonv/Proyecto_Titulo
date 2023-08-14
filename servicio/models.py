@@ -51,6 +51,7 @@ class Horario(models.Model):
     hora_fin = models.TimeField()
     meridiem = models.CharField(max_length=2, choices=MERIDIEM_CHOICES, default=PM)
 
+    #ESTA FUNCION GENERA LOS HORARIOS AUTOMATICAMENTE POR DEFECTO RELLENA LA CLASE HORARIO
     @classmethod
     def generar_horarios_default(cls):
         horarios_default_am = [
@@ -103,7 +104,7 @@ class Agenda(models.Model):
         verbose_name_plural = _('Agendas')
         unique_together = ('cancha', 'horario')
 
-
+#SE LAMA LA FUNCION GENERAR HORARIOS
 @receiver(post_migrate)
 def generar_horarios_default(sender, **kwargs):
     if sender.name == 'cliente': 

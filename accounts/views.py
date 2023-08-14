@@ -19,10 +19,10 @@ from .decorators import has_permission
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-#alonso
+#alonso ( al final se asignaran los prmisos para cada funcion)
 # @method_decorator(has_permission(['Listar_usuarios']), name='dispatch')
 
-# view Sub Index
+# view Sub Index de administracion
 class IndexView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'accounts/index.html'

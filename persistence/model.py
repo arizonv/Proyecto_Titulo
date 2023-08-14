@@ -1,4 +1,6 @@
-
+#ESTE MODELO SOLO SE USA PARA CREAR EL DDL Y PODER OBTENER EL DIAGRAMA 
+#######################################################################
+#######################################################################
 class Permiso(models.Model):
     CLASES_CHOICES = [
         ('Permiso', 'Permiso'),

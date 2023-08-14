@@ -30,6 +30,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
+#API DE LOGIN PARA IBICIAR SESION 
 class LoginAPIView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
@@ -47,6 +48,7 @@ class LoginAPIView(APIView):
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+# API PARA CERRAR SESION
 class UserLogout(APIView):
     authentication_classes = [TokenAuthentication, SessionAuthentication]
     permission_classes = [IsAuthenticated]
@@ -57,6 +59,7 @@ class UserLogout(APIView):
 
 
 
+#API PARA LISTAR TODOS LOS USUARIOS
 
 class UserList(generics.ListAPIView):
     # authentication_classes = [TokenAuthentication]
@@ -69,7 +72,7 @@ class UserList(generics.ListAPIView):
 
 
 
-
+#API DE REGISTRO DE USUARIO ( POR DEFECTO COMO EXPLICA EN EL MODELO SE CREARA POR DEFECTO QUE EL USUARIO SEA CLIENTE YA QUE ES EL FORM DE REGISTRO DE LA PAGINA)
 class Register(generics.GenericAPIView):
     serializer_class = createUserSerializer
 
@@ -82,9 +85,7 @@ class Register(generics.GenericAPIView):
             "message": "User Created Successfully.",
         })
 
-############################################################
-
-
+#API PARA GENERAR REPORTES DE TODOS LOS MODELOS IMPORTANTES
 @method_decorator(has_permission(['Reportes']), name='dispatch')
 class ExcelReportView(APIView):
     def generate_excel(self, data, headers, sheet_title, filename):

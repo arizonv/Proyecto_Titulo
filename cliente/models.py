@@ -50,6 +50,8 @@ class Reserva(models.Model):
         formatted_date = self.dia.strftime('%d-%m-%Y')
         return f"Reserva de {self.cliente} para el {formatted_date}, {self.agenda.cancha} {self.agenda.horario}"
 
+
+#CREA UNA BOLETA AUTOMATICAMENTE CUANDO SE CREA UNA RESERVA
 @receiver(post_save, sender=Reserva)
 def crear_boleta(sender, instance, created, **kwargs):
     if created or (not instance._state.adding and instance.estado == 'pendiente'):
@@ -60,9 +62,13 @@ def crear_boleta(sender, instance, created, **kwargs):
         # Crea una instancia de Boleta con el valor calculado
         Boleta.objects.create(cliente=instance.cliente, reserva=instance, total=mitad_precio)
 
+
+#GENERADOR DE CODIGO (ALONSO, CAMBIAR A QUE SEA UN CODIGO QR)
 def generar_codigo():
     return str(uuid.uuid4().hex)[:10] 
 
+
+#CREA UNA TICKET ( CODIGO QR) AUTOMATICAMENTE AL CREAR LA RESERVA ( SE SUPONE QUE FUE HECHO EL PRIMER PAGO)
 @receiver(post_save, sender=Reserva)
 def crear_ticket(sender, instance, created, **kwargs):
     if created or (not instance._state.adding and instance.estado == 'pendiente'):
