@@ -19,7 +19,7 @@ import openpyxl
 from django.http import HttpResponse
 from openpyxl.styles import Font, Alignment, PatternFill
 from openpyxl import Workbook
-from cliente.models import Cliente,Boleta,Reserva
+from cliente.models import Cliente,Boleta,Reserva,Ticket
 
 
 
@@ -171,6 +171,39 @@ class ExcelReportView(APIView):
 
         workbook.save(response)
         return response
+
+
+
+
+
+#funciones para movil
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+
+
+class CambiarEstadoReserva(APIView):
+    def post(self, request, *args, **kwargs):
+        codigo = request.data.get('codigo')
+
+        if codigo:
+            try:
+                ticket = Ticket.objects.get(codigo=codigo)
+                reserva = ticket.reserva
+
+                if reserva.estado == 'pendiente':
+                    reserva.estado = 'finalizada'
+                    reserva.save()
+
+                    return Response({'message': 'Estado de reserva cambiado a finalizado.'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'error': 'La reserva ya no está en estado pendiente.'}, status=status.HTTP_400_BAD_REQUEST)
+            except Ticket.DoesNotExist:
+                return Response({'error': 'Código de verificación inválido.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Se requiere un código de verificación.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
