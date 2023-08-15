@@ -1,0 +1,138 @@
+├── 📁 accounts
+│   ├── 📄 admin.py
+│   ├── 📄 apps.py
+│   ├── 📄 decorators.py
+│   ├── 📄 forms.py
+│   ├── 📄 models.py
+│   ├── 📄 roles_permisos.py
+│   ├── 📁 templates
+│   │   ├── 📁 accounts
+│   │   │   ├── 📄 index.html
+│   │   │   ├── 📄 register.html
+│   │   │   ├── 📄 update_password.html
+│   │   │   ├── 📄 update_user.html
+│   │   │   └── 📄 user_list.html
+│   │   ├── 📁 admin
+│   │   │   └── 📄 user_admin.html
+│   │   └── 📁 roles_permisos
+│   ├── 📄 tests.py
+│   ├── 📄 urls.py
+│   ├── 📄 views.py
+│   ├── 📄 __init__.py
+├── 📁 api
+│   ├── 📄 admin.py
+│   ├── 📄 apps.py
+│   ├── 📄 models.py
+│   ├── 📄 serializers.py
+│   ├── 📄 tests.py
+│   ├── 📄 transbank.py
+│   ├── 📄 urls.py
+│   ├── 📄 views.py
+│   ├── 📄 __init__.py
+├── 📁 cliente
+│   ├── 📄 admin.py
+│   ├── 📄 apps.py
+│   ├── 📄 forms.py
+│   ├── 📄 models.py
+│   ├── 📁 templates
+│   │   ├── 📁 boleta
+│   │   ├── 📁 cliente
+│   │   │   ├── 📄 agregar.html
+│   │   │   ├── 📄 listar.html
+│   │   │   └── 📄 modificar.html
+│   │   ├── 📁 reserva
+│   │   │   ├── 📄 crear.html
+│   │   │   ├── 📄 listar.html
+│   │   │   └── 📄 reservas_usuario.html
+│   │   ├── 📁 ticket
+│   │   └── 📁 transbank
+│   │       ├── 📄 confirmation.html
+│   │       ├── 📄 error.html
+│   │       └── 📄 payment.html
+│   ├── 📄 tests.py
+│   ├── 📄 transbank.py
+│   ├── 📄 urls.py
+│   ├── 📄 utils.py
+│   ├── 📄 views.py
+│   ├── 📄 __init__.py
+├── 📁 core
+│   ├── 📄 asgi.py
+│   ├── 📄 guard.py
+│   ├── 📄 settings.py
+│   ├── 📄 urls.py
+│   ├── 📄 wsgi.py
+│   ├── 📄 __init__.py
+|
+├── 📁 login
+│   ├── 📄 admin.py
+│   ├── 📄 apps.py
+│   ├── 📄 forms.py
+│   ├── 📁 templates
+│   │   ├── 📁 index
+│   │   │   └── 📄 home.html
+│   │   └── 📁 log
+│   │       ├── 📄 login.html
+│   │       └── 📄 loginAdmin.html
+│   ├── 📄 tests.py
+│   ├── 📄 urls.py
+│   ├── 📄 views.py
+│   ├── 📄 __init__.py
+|
+├── 📁 persistence
+│   └── 📄 model.py
+|
+├── 📁 servicio
+│   ├── 📄 admin.py
+│   ├── 📄 apps.py
+│   ├── 📄 forms.py
+│   ├── 📄 models.py
+│   ├── 📁 templates
+│   │   ├── 📁 agendas
+│   │   │   ├── 📄 agregar.html
+│   │   │   └── 📄 listar.html
+│   │   ├── 📁 pre_reserva
+│   │   │   └── 📄 pre_reserva.html
+│   │   └── 📁 servicios
+│   │       ├── 📄 actualizar.html
+│   │       ├── 📄 agregar.html
+│   │       └── 📄 listar.html
+|   |
+│   ├── 📁 templatetags
+│   │   ├── 📄 custom_filters.py
+│   │   ├── 📄 __init__.py
+│   ├── 📄 tests.py
+│   ├── 📄 urls.py
+│   ├── 📄 views.py
+│   ├── 📄 __init__.py
+├── 📁 static
+│   └── 📁 css
+│       ├── 📁 home
+│       │   └── 📄 home.css
+│       ├── 📁 login
+│       │   └── 📄 login.css
+│       ├── 📄 nav.css
+│       ├── 📁 register
+│       │   └── 📄 register.css
+│       ├── 📁 reserva
+│       │   └── 📄 reserva.css
+│       └── 📁 servicio
+│           └── 📄 agendas.css
+└── 📁 templates
+|   ├── 📄 layout.html
+|    ├── 📁 msg
+|    │   └── 📄 form_delete.html
+|    ├── 📁 pages
+|    │   └── 📄 home.html
+|    └── 📁 partials
+|        ├── 📄 footer.html
+|        └── 📄 navbar.html
+|
+├── 📄 db.sqlite3
+├── 📄 proyecto.txt
+├── 📄 proyecto_epicas.txt
+├── 📄 README.md
+├── 📄 requirements.txt
+├── 📄 manage.py
+
+
+
