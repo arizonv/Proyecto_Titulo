@@ -7,9 +7,13 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from .models import Reserva, Agenda, Cliente, Ticket
-from django.utils import timezone
-from datetime import datetime
+from .models import Reserva, Agenda, Cliente,Boleta, Ticket
+
+from django.conf import settings
+from django.shortcuts import render
+
+from django.db.models.signals import post_save
+import uuid
 
 
 
@@ -64,6 +68,7 @@ def confirm_transaction(request):
                 # Cambiar el estado de la reserva a 'pendiente'
                 reserva.estado = 'pendiente'
                 reserva.save()
+                crear_ticket_al_reservar(reserva)
                 messages.success(request, 'Reserva Exitosa!')
                 print(f'reserva recibida: {reserva}')
                 # Eliminar la reserva de la sesión
@@ -75,5 +80,27 @@ def confirm_transaction(request):
     else:
         # Manejar el caso en que no se haya proporcionado el parámetro 'token_ws'
         return render(request, 'transbank/error.html')
+
+
+
+def generar_codigo():
+    return str(uuid.uuid4().hex)[:10]
+
+def crear_ticket_al_reservar(reserva):
+    existing_ticket = Ticket.objects.filter(reserva=reserva).first()
+
+    if not existing_ticket:
+        # Generar un código único de verificación
+        codigo = generar_codigo()
+        correo_destino = 'a.vasgarridoe@gmail.com'
+        # Obtener el cliente asociado a la reserva
+        cliente = reserva.cliente
+        # Enviar el código de verificación por correo electrónico
+        asunto = 'Código de verificación para tu reserva'
+        mensaje = f'Tu código de verificación es: {codigo}'
+        send_mail(asunto, mensaje, settings.EMAIL_HOST_USER, [correo_destino])
+        # Crear una nueva instancia de Ticket
+        Ticket.objects.create(cliente=cliente, reserva=reserva, codigo=codigo)
+
 
 

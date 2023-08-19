@@ -36,8 +36,8 @@ Clientes | {{ block.super }}
               <td>{{ cliente.get_sexo_display }}</td>
               <td>
                 {% for ticket in cliente.ticket_set.all %}
-                <a class="btn ticket-modal-button" data-target="#ticketModal{{ ticket.codigo }}"
-                  data-toggle="modal" style="margin-top: -10px;">{{ ticket.codigo }}--&#10230;;</a><br>
+                <a class="btn ticket-modal-button" data-target="#ticketModal{{ ticket.codigo }}" data-toggle="modal"
+                  style="margin-top: -10px;">{{ ticket.codigo }}&#10230;</a><br>
                 {% endfor %}
               </td>
               <td>
@@ -52,32 +52,41 @@ Clientes | {{ block.super }}
       </div>
     </div>
   </div>
-  
+
   {% for cliente in clientes %}
-    {% for ticket in cliente.ticket_set.all %}
-    <div class="modal fade" id="ticketModal{{ ticket.codigo }}" tabindex="-1" role="dialog"
-      aria-labelledby="ticketModalLabel" aria-hidden="true" >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ticketModalLabel">Detalles de Reserva</h5>
-            <div data-dismiss="modal" aria-label="Close" style="cursor: pointer;">
-              <span id="close-modal" aria-hidden="true" style="font-size: 1.5rem;">&times;</span>
-            </div>
+  {% for ticket in cliente.ticket_set.all %}
+  <div class="modal fade" id="ticketModal{{ ticket.codigo }}" tabindex="-1" role="dialog"
+    aria-labelledby="ticketModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="ticketModalLabel">Detalles de Reserva</h4>
+          <div data-dismiss="modal" aria-label="Close" style="cursor: pointer;">
+            <span id="close-modal" aria-hidden="true" style="font-size: 1.5rem;">&times;</span>
           </div>
-          <div class="modal-body text-start">
-            <p>Cliente: {{ cliente.user.username }}</p>
-            <p>Rut: {{ cliente.rut }}</p>
-            <p>Fecha de Reserva: {{ ticket.reserva.dia }}</p>
-            <hr>
-            <p>Horario: {{ ticket.reserva.agenda.horario }}</p>
-            <p>N° de Cancha: {{ ticket.reserva.agenda.cancha }}</p>
-            <p>Tipo: {{ ticket.reserva.agenda.cancha.tipo }}</p>
-          </div>
+        </div>
+        <div class="modal-body text-start">
+          <p>Cliente: {{ cliente.user.username }}</p>
+          <p>Rut: {{ cliente.rut }}</p>
+          <p>Fecha de Reserva: {{ ticket.reserva.dia }}</p>
+          <p>Horario: {{ ticket.reserva.agenda.horario }}</p>
+          <p>N° de Cancha: {{ ticket.reserva.agenda.cancha }}</p>
+          <p>Tipo: {{ ticket.reserva.agenda.cancha.tipo }}</p>
+          <hr>
+          <h4>Boleta(s)</h4>
+          <hr>
+          {% for boleta in ticket.reserva.boleta_set.all %}
+          <p>Fecha de Emisión: {{ boleta.fecha_emision }}</p>
+          <p>Total: {{ boleta.total }}</p>
+          <hr>
+          {% empty %}
+          <p>No se encontraron boletas</p>
+          {% endfor %}
         </div>
       </div>
     </div>
-    {% endfor %}
+  </div>
+  {% endfor %}
   {% endfor %}
 </div>
 
