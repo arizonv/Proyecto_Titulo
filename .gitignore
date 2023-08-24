@@ -7,3 +7,4 @@
 # Otros archivos o carpetas a ignorar...
 git config --global user.email a.vasgarridoe@gmail.com  
 git config --global user.name arizonv
+generador.py
