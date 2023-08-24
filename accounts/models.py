@@ -32,7 +32,6 @@ class Permiso(models.Model):
     def __str__(self):
         return self.nombre
 
-
 #ESTE TIPO DE FUNCIONES ES PARA CUANDO SE HAGA EL MIGRATE RELLENAR AUTOMATICO CON PERMISOS POR DEFECTO
 @receiver(post_migrate)
 def create_default_permissions(sender, **kwargs):
@@ -62,7 +61,6 @@ class Rol(models.Model):
 
     class Meta:
         verbose_name_plural = 'roles'
-
 
 
 class CustomUserManager(UserManager):

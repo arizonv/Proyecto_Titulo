@@ -1,6 +1,3 @@
-#ESTE MODELO SOLO SE USA PARA CREAR EL DDL Y PODER OBTENER EL DIAGRAMA 
-#######################################################################
-#######################################################################
 class Permiso(models.Model):
     CLASES_CHOICES = [
         ('Permiso', 'Permiso'),
@@ -67,7 +64,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     roles = models.ForeignKey(Rol, on_delete=models.CASCADE)
 
 
-
 class Cliente(models.Model):
     SEXO = [
         ('F', 'Femenino'),
@@ -81,17 +77,20 @@ class Cliente(models.Model):
     rut = models.CharField(max_length=10)
     sexo = models.CharField(max_length=10, choices=SEXO)
 
+
 class Reserva(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
+    dia = models.DateField()
     ESTADO_CHOICES = [
         ('disponible', 'Disponible'),
         ('pendiente', 'Pendiente'),
         ('finalizada', 'Finalizada'),
     ]
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='disponible')
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    agenda = models.ForeignKey(Agenda, on_delete=models.CASCADE)
-    dia = models.DateField()
 
+    class Meta:
+        unique_together = ('agenda', 'cliente', 'dia')
 
 
 class Ticket(models.Model):
@@ -99,8 +98,6 @@ class Ticket(models.Model):
     codigo = models.CharField(max_length=10)
     fecha_envio = models.DateTimeField(auto_now_add=True)
     reserva = models.ForeignKey(Reserva, on_delete=models.CASCADE)
-
-
 
 class Boleta(models.Model):
     fecha_emision = models.DateTimeField(default=timezone.now)
@@ -129,6 +126,12 @@ class Cancha(models.Model):
     numeracion = models.CharField(max_length=10, choices=NUMERACION_CHOICES)
     tipo = models.ForeignKey(TipoCancha, on_delete=models.CASCADE, related_name='canchas')
 
+    def __str__(self):
+        return f'Cancha {self.numeracion}'
+
+    class Meta:
+        verbose_name = _('Cancha')
+        verbose_name_plural = _('Canchas')
 
 class Horario(models.Model):
     AM = 'AM'
@@ -140,7 +143,6 @@ class Horario(models.Model):
     hora_inicio = models.TimeField()
     hora_fin = models.TimeField()
     meridiem = models.CharField(max_length=2, choices=MERIDIEM_CHOICES, default=PM)
-    
 
 
 class Agenda(models.Model):
@@ -148,4 +150,7 @@ class Agenda(models.Model):
     horario = models.ForeignKey(Horario, on_delete=models.CASCADE)
     disponible = models.BooleanField(default=True)
 
-
+    class Meta:
+        verbose_name = _('Agenda')
+        verbose_name_plural = _('Agendas')
+        unique_together = ('cancha', 'horario')
