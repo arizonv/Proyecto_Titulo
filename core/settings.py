@@ -14,7 +14,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 # Define manualmente la URL de GitHub CodeSpaces
-github_codespace_url = "https://special-space-engine-4967v5wx6qg27pq-8000.app.github.dev"
+github_codespace_url = "https://crispy-space-succotash-67wg5q4jrj5hxxjx-8000.app.github.dev"
 
 # Divide la URL para extraer el nombre del entorno y el dominio
 github_codespace_parts = github_codespace_url.split(".")
@@ -26,6 +26,7 @@ CSRF_TRUSTED_ORIGINS = []
 
 # Agrega localhost:8000 como origen permitido (útil para desarrollo local)
 CSRF_TRUSTED_ORIGINS.append("http://localhost:8000")
+CSRF_TRUSTED_ORIGINS.append("https://localhost:8000")  # También permitimos HTTPS
 
 # Si se está ejecutando en GitHub CodeSpaces, agrega la URL de GitHub CodeSpaces como origen permitido
 if github_codespace_name and github_codespace_domain:
@@ -72,11 +73,11 @@ MIDDLEWARE = [
 ]
 
 
-# CORS
+# En el archivo CORS_ORIGIN_WHITELIST, también asegúrate de permitir ambas versiones de localhost
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200',  # Agrega tus orígenes permitidos para CORS aquí
+    'http://localhost:4200',
+    'https://localhost:4200',  # También permitimos HTTPS
 ]
-
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 
