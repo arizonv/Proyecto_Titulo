@@ -3,12 +3,7 @@ import os
 import socket
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-v2_d#nv6ls^j+a0z457$xr##kt1s)40u__pew2jkh%d*01)+s='
@@ -18,11 +13,24 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-if 'CODESPACE_NAME' in os.environ:
-    codespace_name = os.getenv("CODESPACE_NAME")
-    codespace_domain = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
-    CSRF_TRUSTED_ORIGINS = [f'https://{codespace_name}-8000.{codespace_domain}']
+# Define manualmente la URL de GitHub CodeSpaces
+github_codespace_url = "https://special-space-engine-4967v5wx6qg27pq-8000.app.github.dev"
 
+# Divide la URL para extraer el nombre del entorno y el dominio
+github_codespace_parts = github_codespace_url.split(".")
+github_codespace_name = github_codespace_parts[0].replace("https://", "")
+github_codespace_domain = ".".join(github_codespace_parts[1:])
+
+# Define la lista de orígenes permitidos para CSRF
+CSRF_TRUSTED_ORIGINS = []
+
+# Agrega localhost:8000 como origen permitido (útil para desarrollo local)
+CSRF_TRUSTED_ORIGINS.append("http://localhost:8000")
+
+# Si se está ejecutando en GitHub CodeSpaces, agrega la URL de GitHub CodeSpaces como origen permitido
+if github_codespace_name and github_codespace_domain:
+    github_codespace_url = f"https://{github_codespace_name}-8000.{github_codespace_domain}"
+    CSRF_TRUSTED_ORIGINS.append(github_codespace_url)
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -60,8 +68,17 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',   
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+# CORS
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:4200',  # Agrega tus orígenes permitidos para CORS aquí
+]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'core.urls'
 X_FRAME_OPTIONS = "ALLOW-FROM preview.app.github.dev"
@@ -82,14 +99,6 @@ TEMPLATES = [
     },
 ]
 
-
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:4200'
-]
-
-
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
