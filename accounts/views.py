@@ -31,7 +31,8 @@ class IndexView(LoginRequiredMixin, DetailView):
     def get_object(self):
         return self.request.user
 
-# FUNCIONES DE USUARIO 
+# FUNCIONES DE USUARIO
+@method_decorator(has_permission(['leer user']), name='dispatch')
 class UserListView(LoginRequiredMixin, ListView):
     model = User
     template_name = 'accounts/user_list.html'
