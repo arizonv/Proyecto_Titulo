@@ -12,7 +12,7 @@ from .serializers import (
     listSerializer,
     createUserSerializer,
 )
-from accounts.models import User
+from accounts.models import User,ComplejoDeportivo
 from django.contrib.auth import authenticate, login, logout
 
 import openpyxl
@@ -31,6 +31,10 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.parsers import JSONParser
 from rest_framework.exceptions import ParseError
+
+from django.views import View
+from django.core import serializers
+from django.http import JsonResponse
 
 
 
@@ -65,7 +69,6 @@ class UserLogout(APIView):
 class UserList(generics.ListAPIView):
     # authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-
     queryset = User.objects.all()
     serializer_class = listSerializer
     def get(self, request, *args, **kwargs):
@@ -201,4 +204,20 @@ class ReservaPorCodigoAPIView(APIView):
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         
+
+
+
+
+
+
+#API PARA LISTAR TODOS LOS COMPLEJOS
+class ComplejoDeportivoListView(View):
+    def get(self, request, *args, **kwargs):
+        depo = ComplejoDeportivo.objects.all()
+        depo_data = serializers.serialize('json', depo)
+        return JsonResponse({'depo': depo_data}, safe=False)
+
+
+
+
 

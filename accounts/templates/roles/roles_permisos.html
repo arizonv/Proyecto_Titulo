@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+Roles & Permisos | {{ block.super }}
+{% endblock %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block container %}
+<div class="container">
+  <br>
+  <hr>
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">Roles & Permisos</h1>
+        {% for roles in rol %}
+        {{ roles.nombre }}
+        {% empty %}
+          <tr>
+            <td colspan="6">No hay Roles disponibles.</td>
+          </tr>
+        {% endfor %}
+        <hr>
+        {% for permisos in permiso %}
+        {{ permisos.nombre }}
+        {% empty %}
+          <tr>
+            <td colspan="6">No hay Roles disponibles.</td>
+          </tr>
+        {% endfor %}
+
+    </div>
+    <div class="card-body">
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

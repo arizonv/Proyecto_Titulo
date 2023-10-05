@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Permiso, Rol
+from .models import User, Permiso, Rol,Region,ComplejoDeportivo
 
 class PermisoAdmin(admin.ModelAdmin):
     list_display = ('clase', 'nombre')
@@ -27,3 +27,6 @@ class CustomUserAdmin(BaseUserAdmin):
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Permiso, PermisoAdmin) 
 admin.site.register(Rol)
+
+admin.site.register(Region)
+admin.site.register(ComplejoDeportivo)

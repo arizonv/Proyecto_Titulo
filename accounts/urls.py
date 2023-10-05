@@ -16,4 +16,9 @@ urlpatterns = [
     path('user-list/', views.user_list, name='user_list'),
     path('user-admin-list/', views.user_admin_list, name='user_admin_list'),
     path('user-delete/<int:pk>/', views.user_delete, name='user_delete'),
+    
+    #ROLES Y PERMISOS
+    path('roles/', roles_permisos.roles_list, name='roles_list'),
+    path('permisos/', roles_permisos.permisos_list, name='permisos_list'),
+
 ]

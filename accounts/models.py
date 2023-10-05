@@ -9,6 +9,51 @@ from django.dispatch import receiver
 from django.db import models, transaction 
 
 
+class Region(models.Model):
+
+    REGIONES_CHOICES = [
+    ('Metropolitana de Santiago', 'Metropolitana de Santiago'),
+    ('Tarapacá', 'Tarapacá'),
+    ('Antofagasta', 'Antofagasta'),
+    ('Atacama', 'Atacama'),
+    ('Coquimbo', 'Coquimbo'),
+    ('Valparaíso', 'Valparaíso'),
+    ('Libertador General Bernardo O\'Higgins', 'Libertador General Bernardo O\'Higgins'),
+    ('Maule', 'Maule'),
+    ('Ñuble', 'Ñuble'),
+    ('Biobío', 'Biobío'),
+    ('La Araucanía', 'La Araucanía'),
+    ('Los Ríos', 'Los Ríos'),
+    ('Los Lagos', 'Los Lagos'),
+    ('Aysén del General Carlos Ibáñez del Campo', 'Aysén del General Carlos Ibáñez del Campo'),
+    ('Magallanes y de la Antártica Chilena', 'Magallanes y de la Antártica Chilena'),
+    ]
+    nombre = models.CharField(max_length=50, choices=REGIONES_CHOICES)
+    def __str__(self):
+        return self.nombre
+
+
+@receiver(post_migrate)
+def create_regions(sender, **kwargs):
+    if sender.name == 'accounts':  
+        existing_regions = set(Region.objects.values_list('nombre', flat=True))
+        for region_choice in Region.REGIONES_CHOICES:
+            region_name = region_choice[0]
+            if region_name not in existing_regions:
+                Region.objects.create(nombre=region_name)
+                existing_regions.add(region_name)
+
+
+class ComplejoDeportivo(models.Model):
+    nombre = models.CharField(max_length=100)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, default='Metropolitana de Santiago')
+    url = models.URLField()
+    imagen = models.ImageField(upload_to='static/complejos_deportivos/')
+    
+    def __str__(self):
+        return self.nombre
+
+
 class Permiso(models.Model):
     CLASES_CHOICES = [
         ('Permiso', 'Permiso'),

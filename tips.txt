@@ -1,0 +1,11 @@
+
+{
+  "depo": "[{
+    \"model\": \"accounts.complejodeportivo\",
+    \"pk\": 1,
+    \"fields\": {
+        \"nombre\": \"campeones\",
+        \"region\": 1,
+        \"url\": \"null\",
+        \"imagen\": \"static/complejos_deportivos/04eaae9cea7ad9d33299258c1a489c09b45b4244.webp\"}}]"
+}
