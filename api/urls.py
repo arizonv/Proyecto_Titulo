@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import LoginAPIView,UserLogout,UserList,Register,ExcelReportView,ComplejoDeportivoListView,ReservaList
+from .views import LoginAPIView,UserLogout,UserList,Register,ExcelReportView,ComplejoDeportivoListView,ReservasPorUsuario
 from .transbank import TransbankCreateView, TransbankCommitView, TransbankReverseOrCancelView
 from . import views
 
@@ -24,12 +24,10 @@ urlpatterns = [
 
 
      #funciones para complejos
-     path('depo/', ComplejoDeportivoListView.as_view(), name='depo'),
+    path('depo/', ComplejoDeportivoListView.as_view(), name='depo'),
 
 
 
      ##reservas
-     path('reservas/', ReservaList.as_view(), name='reserva-list'),
-
-]
+    path('reservas/<str:username>/', ReservasPorUsuario.as_view(), name='obtener_reservas'),]
 

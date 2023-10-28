@@ -1,46 +1,37 @@
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
+from django.views import View
+from django.contrib.auth import authenticate, login, logout
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from rest_framework.parsers import JSONParser
+from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
-from rest_framework import generics
+from rest_framework import status, generics
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
+from rest_framework.generics import ListAPIView
+
+
+import openpyxl
+from openpyxl.styles import Font, Alignment, PatternFill
+from openpyxl import Workbook
 
 from .serializers import (
     UserSerializer,
     LoginSerializer,
     listSerializer,
     createUserSerializer,
+    ReservaSerializer,
 )
-from accounts.models import User,ComplejoDeportivo
-from django.contrib.auth import authenticate, login, logout
 
-import openpyxl
-from django.http import HttpResponse
-from openpyxl.styles import Font, Alignment, PatternFill
-from openpyxl import Workbook
-from cliente.models import Cliente,Boleta,Reserva,Ticket
+from accounts.models import User, ComplejoDeportivo
+from cliente.models import Cliente, Boleta, Reserva, Ticket
 
-
-from rest_framework.generics import ListAPIView
-from rest_framework.response import Response
-from .serializers import ReservaSerializer
-
-
-
-#decorador
+# Decorador
 from accounts.decorators import has_permission
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-
-
-from rest_framework.parsers import JSONParser
-from rest_framework.exceptions import ParseError
-
-from django.views import View
-from django.core import serializers
-from django.http import JsonResponse
-
 
 
 
@@ -235,25 +226,13 @@ class ComplejoDeportivoListView(View):
 
 
 
-
-
-
-
-
-
-
-class ReservaList(ListAPIView):
+class ReservasPorUsuario(ListAPIView):
     serializer_class = ReservaSerializer
 
     def get_queryset(self):
-        user = self.request.user
+        username = self.kwargs['username']
         try:
-            cliente = user.cliente
+            cliente = Cliente.objects.get(user__username=username)
+            return Reserva.objects.filter(cliente=cliente)
         except Cliente.DoesNotExist:
             return Reserva.objects.none()
-        return Reserva.objects.filter(cliente=cliente)
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)

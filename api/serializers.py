@@ -40,11 +40,9 @@ class createUserSerializer(serializers.ModelSerializer):
         return user
 
 
-
-
 from cliente.models import Reserva
 
 class ReservaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reserva
-        fields = '__all__'
+        fields = ('dia', 'estado') 
