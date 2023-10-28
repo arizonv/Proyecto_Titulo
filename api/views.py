@@ -22,6 +22,11 @@ from openpyxl import Workbook
 from cliente.models import Cliente,Boleta,Reserva,Ticket
 
 
+from rest_framework.generics import ListAPIView
+from rest_framework.response import Response
+from .serializers import ReservaSerializer
+
+
 
 #decorador
 from accounts.decorators import has_permission
@@ -232,3 +237,23 @@ class ComplejoDeportivoListView(View):
 
 
 
+
+
+
+
+
+class ReservaList(ListAPIView):
+    serializer_class = ReservaSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        try:
+            cliente = user.cliente
+        except Cliente.DoesNotExist:
+            return Reserva.objects.none()
+        return Reserva.objects.filter(cliente=cliente)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
