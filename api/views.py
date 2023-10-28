@@ -75,17 +75,28 @@ class UserList(generics.ListAPIView):
         return self.list(request, *args, **kwargs)
 
 #API DE REGISTRO DE USUARIO ( POR DEFECTO COMO EXPLICA EN EL MODELO SE CREARA POR DEFECTO QUE EL USUARIO SEA CLIENTE YA QUE ES EL FORM DE REGISTRO DE LA PAGINA)
+from rest_framework import generics
+from rest_framework.response import Response
+from .serializers import createUserSerializer, listSerializer
+
 class Register(generics.GenericAPIView):
     serializer_class = createUserSerializer
 
-    def post(self, request, *args,  **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+
+        roles_name = serializer.get_roles(user)
+        user_data = listSerializer(user).data
+        user_data['roles'] = roles_name
+
         return Response({
-            "user": listSerializer(user).data,
+            "user": user_data,
             "message": "User Created Successfully.",
         })
+
+
 
 #API PARA GENERAR REPORTES DE TODOS LOS MODELOS IMPORTANTES
 # @method_decorator(has_permission(['']), name='dispatch')

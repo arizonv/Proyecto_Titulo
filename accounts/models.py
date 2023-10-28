@@ -145,7 +145,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField('Admin', default=False)
     is_active = models.BooleanField('Ativo', default=True)
     date_joined = models.DateTimeField('Data de Entrada', auto_now_add=True)
-    roles = models.ForeignKey(Rol, on_delete=models.CASCADE)
+    roles = models.ForeignKey(Rol, on_delete=models.CASCADE, blank=True, null=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -166,19 +166,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         return str(self).split(' ')[0]
 
 
-#ESTA FUNCION HACE QUE CUANDO SE GUARDE UN USUARIO ESTE TENGA EL ROL POR DEFECTO DE CLIENTE
-@receiver(pre_save, sender=User)
-def assign_default_role(sender, instance, **kwargs):
-    if not instance.roles:
-        default_role, created = Rol.objects.get_or_create(nombre='cliente')
-        instance.roles = default_role
-
 #ESTA FUNCION HACE QUE SI EL USUARIO CAMBIA SU ROL A ADMINISTRADOR SEA LO MISMO QUE UN SUPER USUARIO
 @receiver(pre_save, sender=User)
 def update_is_staff(sender, instance, **kwargs):
     if instance.roles and instance.roles.nombre == 'admin':
         instance.is_staff = True
     else:
+        if not instance.roles:
+            cliente_role, created = Rol.objects.get_or_create(nombre='cliente')
+            instance.roles = cliente_role
         instance.is_staff = False
+
 
 
